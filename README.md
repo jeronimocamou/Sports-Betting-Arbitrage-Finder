@@ -1,16 +1,16 @@
 # Sports Betting Arbitrage Finder
 
-Scans live sportsbook odds across multiple bookmakers to detect arbitrage opportunities — situations where the combined implied probabilities of all outcomes fall below 100%, allowing you to guarantee a profit regardless of the result.
+Scans live sportsbook odds across multiple bookmakers to detect arbitrage opportunities. Situations where the combined implied probabilities of all outcomes fall below 100%, allowing you to guarantee a profit regardless of the result.
 
 ---
 
 ## How It Works
 
 ### 1. Live Odds Fetching
-The script calls the [Odds API via RapidAPI](https://rapidapi.com/theoddsapi/api/live-sports-odds) to pull real-time h2h (head-to-head) odds for upcoming games across US sportsbooks. Results are loaded into a DataFrame with one row per game.
+The script calls the [Odds API via RapidAPI](https://rapidapi.com/theoddsapi/api/live-sports-odds) to pull real time h2h (head-to-head) odds for upcoming games across US sportsbooks. Results are loaded into a DataFrame with one row per game.
 
 ### 2. 2-Outcome Filter
-Soccer and other sports with a draw option produce 3-way h2h markets (home / draw / away). These are automatically excluded — only markets with exactly 2 outcomes (e.g. NBA, NFL, MLB, cricket) are considered, since a 3-way market requires a different arbitrage calculation.
+Soccer and other sports with a draw option produce 3-way h2h markets (home / draw / away). These are automatically excluded, only markets with exactly 2 outcomes (e.g. NBA, NFL, MLB, cricket) are considered, since a 3-way market requires a different arbitrage calculation.
 
 ### 3. Implied Probability Conversion
 American odds are converted to implied probabilities using standard formulas:
@@ -47,21 +47,3 @@ Each result shows how long ago each bookmaker last updated their odds (e.g. `upd
       Profit: $7.44 per $100 staked (7.4%).
 ```
 
----
-
-## Setup
-
-1. Install dependencies:
-   ```bash
-   pip install requests pandas
-   ```
-
-2. Add your RapidAPI key as an environment variable (or it falls back to the key in the script):
-   ```bash
-   export RAPIDAPI_KEY=your_key_here
-   ```
-
-3. Run:
-   ```bash
-   python Arbitrage.py
-   ```
